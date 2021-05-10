@@ -1,67 +1,19 @@
-const Employee = require("../lib/Employee");
-const Engineer = require("../lib/Engineer");
-const crypto = require("crypto");
+const Engineer = require("../assets/Engineer");
 
-describe("Engineer", () => {
-  let obj;
-  let name;
-  let id;
-  let email;
-  let github;
+test("Can set GitHUb account via constructor", () => {
+  const testValue = "GitHubUser";
+  const e = new Engineer("Foo", 1, "test@test.com", testValue);
+  expect(e.github).toBe(testValue);
+});
 
-  beforeAll(() => {
-    name = crypto.randomBytes(10).toString("hex");
-    id = crypto.randomBytes(8).toString("hex");
-    email = crypto.randomBytes(10).toString("hex");
-    github = crypto.randomBytes(10).toString("hex");
+test("getRole() should return \"Engineer\"", () => {
+  const testValue = "Engineer";
+  const e = new Engineer("Foo", 1, "test@test.com", "GitHubUser");
+  expect(e.getRole()).toBe(testValue);
+});
 
-    obj = new Engineer(name, id, email, github);
-  });
-
-  describe("Initialization", () => {
-    it("Should create an object that is a child of Employee", () => {
-      expect(obj instanceof Employee).toEqual(true);
-    });
-  });
-
-  describe("Properties", () => {
-    it("Should return name that was set during construction", () => {
-      expect(obj.name).toEqual(name);
-    });
-
-    it("Should return ID number that was set during construction", () => {
-      expect(obj.id).toEqual(id);
-    });
-
-    it("Should return email address that was set during construction", () => {
-      expect(obj.email).toEqual(email);
-    });
-
-    it("Should return GitHub user name that was set during construction", () => {
-      expect(obj.github).toEqual(github);
-    });
-  });
-
-  describe("Get Functions", () => {
-    it("Should return name that was set during construction", () => {
-      expect(obj.getName()).toEqual(name);
-    });
-
-    it("Should return ID number that was set during construction", () => {
-      expect(obj.getId()).toEqual(id);
-    });
-
-    it("Should return email address that was set during construction", () => {
-      expect(obj.getEmail()).toEqual(email);
-    });
-
-    it("Should return GitHub username that was set during construction", () => {
-      expect(obj.getGithub()).toEqual(github);
-    });
-
-    it("Should return 'Engineer'", () => {
-      expect(obj.getRole()).toEqual("Engineer");
-    });
-
-  });
+test("Can get GitHub username via getGithub()", () => {
+  const testValue = "GitHubUser";
+  const e = new Engineer("Foo", 1, "test@test.com", testValue);
+  expect(e.getGithub()).toBe(testValue);
 });
