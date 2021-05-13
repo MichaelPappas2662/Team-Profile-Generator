@@ -1,9 +1,11 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-const Engineer = require("./assets/Engineer");
-const Intern = require("./assets/Intern");
-const Manager = require("./assets/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+const Manager = require("./lib/Manager");
+const generateHTML = require("./src/generateHTML");
 
+const teamArray =[];
 
 const addManager = () => {
     return inquirer.prompt ([
@@ -175,6 +177,8 @@ const addEmployee = () => {
     })
 
 };
+
+
 const addNext = () => {
     inquirer
       .prompt([
@@ -194,3 +198,28 @@ const addNext = () => {
         }
       });
   };
+
+  const writeFile = data => {
+    fs.writeFile('./dist/index.html', data, err => {
+        // if there is an error 
+        if (err) {
+            console.log(err);
+            return;
+        // when the profile has been created 
+        } else {
+            console.log("Your team profile has been successfully created! Please check out the index.html")
+        }
+    })
+}; 
+
+addManager()
+  .then(addEmployee)
+  .then(teamArray => {
+    return generateHTML(teamArray);
+  })
+  .then(pageHTML => {
+    return writeFile(pageHTML);
+  })
+  .catch(err => {
+ console.log(err);
+  });
