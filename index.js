@@ -179,33 +179,11 @@ const addEmployee = () => {
 };
 
 
-const addNext = () => {
-    inquirer
-      .prompt([
-        {
-          type: "list",
-        name: "add",
-        message: "Would You Like To Add Another Employee?",
-        choices: ["Yes", "No"]
-        }
-      ])
-      .then(function(res) {
-        if (res.add === "Yes") {
-          promptUser();
-        } else {
-          console.log("Done");
-          completedRoster(employees);
-        }
-      });
-  };
-
   const writeFile = data => {
     fs.writeFile('./dist/index.html', data, err => {
-        // if there is an error 
         if (err) {
             console.log(err);
             return;
-        // when the profile has been created 
         } else {
             console.log("Your team profile has been successfully created! Please check out the index.html")
         }

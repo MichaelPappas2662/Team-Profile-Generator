@@ -1,4 +1,4 @@
-const Employee = require("../assets/Employee");
+const Employee = require("../lib/Employee");
 
 describe("Employee", () => {
     it("Can instantiate Employee instance", () => {
